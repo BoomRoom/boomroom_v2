@@ -1,7 +1,6 @@
-module.exports = function(app, schema, Backbone) {
+module.exports = function(app, mongoose, Backbone) {
 	// Homepage
 	app.get('/', function(request, response) {
-		console.log(schema);
 	    response.render('index.ejs', { check: 'hi', Backbone: Backbone });
 	});
 }

@@ -9,7 +9,6 @@ var express = require('express');
 var app = express();
 app.set('view engine', 'ejs'); // set template engine
 
-
 // HTTP setup
 var http = require('http').Server(app);
 
@@ -33,13 +32,15 @@ var React = require('react');
 var passport = require('passport');
 
 // Database connection
-var schema = require('./db/connect.js');
+var mongoose = require('mongoose');
+var db = mongoose.connect('mongodb://localhost/boomroom');
 
 // Load Schema
-require('./db/models/models.js')(schema);
+var models = require('./db/models/models.js')(mongoose);
+var Song = models.Song;
 
 // Routes
-require('./config/routes.js')(app, schema, Backbone);
+require('./config/routes.js')(app, mongoose, Backbone);
 
 // Set public directory for assets
 app.use(express.static(__dirname + '/public'));
