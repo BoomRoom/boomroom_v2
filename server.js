@@ -37,7 +37,7 @@ var db = mongoose.connect('mongodb://localhost/boomroom');
 
 // Load Schema
 var models = require('./db/models/models.js')(mongoose);
-var Song = models.Song;
+var Song = models.Song; // possibly switch to pulling model from global mongoose object?
 
 // Routes
 require('./config/routes.js')(app, mongoose, Backbone);
