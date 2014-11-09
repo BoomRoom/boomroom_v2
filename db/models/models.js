@@ -1,7 +1,7 @@
 module.exports = function(mongoose) {
-	// require('user.js')(mongoose);
 	var Song = require('./song.js')(mongoose);
-	// require('room.js')(mongoose);
+	var User = require('./user.js')(mongoose);
+	var Room = require('./room.js')(mongoose);
 
-	return { Song: Song };
+	return { Song: Song, User: User, Room: Room };
 }
