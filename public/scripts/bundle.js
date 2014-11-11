@@ -6,7 +6,11 @@ window.Backbone = require('Backbone');
 window.Backbone.$ = $;
 window.React = require('react');
 
-// Backbone Code
+// Initialize global namespace
+var BoomRoom = BoomRoom || { Models: {}, Collections: {}, Views: {}, Components: {} };
+window.BoomRoom = BoomRoom;
+
+// Include backbone code
 var RoomViewComponent = require('../../backbone/components/RoomView.js');
 var RoomView = require('../../backbone/views/RoomView.js');
 },{"../../../node_modules/backbone/node_modules/underscore/underscore-min.js":4,"../../backbone/components/RoomView.js":153,"../../backbone/views/RoomView.js":154,"Backbone":2,"jquery":6,"react":152}],2:[function(require,module,exports){
@@ -30529,8 +30533,6 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":34}],153:[function(require,module,exports){
-var BoomRoom = BoomRoom || { Models: {}, Collections: {}, Views: {}, Components: {} };
-
 BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
 	handleClick: function() {
 		alert('hi');
@@ -30542,8 +30544,6 @@ BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
 	}
 });
 },{}],154:[function(require,module,exports){
-var BoomRoom = BoomRoom || { Models: {}, Collections: {}, Views: {}, Components: {} };
-
 BoomRoom.Views.RoomView = Backbone.View.extend({
 	el: 'body',
 	template: '<div class="room-container"></div>',
@@ -30553,6 +30553,4 @@ BoomRoom.Views.RoomView = Backbone.View.extend({
 		return this;
 	}
 });
-
-new BoomRoomViews.RoomView().render();
 },{}]},{},[1]);

@@ -3,15 +3,18 @@ var gulp = require('gulp');
 
 // Gulp Plugins
 var sass = require('gulp-sass');
+var uglify = require('gulp-uglify');
 var browserify = require('browserify');
+var reactify = require('reactify')
 var source = require('vinyl-source-stream');
+
 
 ///////////
 // Tasks //
 ///////////
 
 // Default
-gulp.task('default', ['sass', 'js', 'watch']);
+gulp.task('default', ['sass', 'js', 'minify', 'watch']);
 
 // SASS
 gulp.task('sass', function() {
@@ -23,10 +26,17 @@ gulp.task('sass', function() {
 // Browserify
 gulp.task('js', function() {
   browserify('./public/scripts/uncompiled/script.js')
-    // .transform(reactify) // compiles the JSX for React
+    .transform(reactify) // compiles the JSX for React
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('public/scripts/compiled'));
+    .pipe(gulp.dest('public/scripts'));
+});
+
+// Uglify
+gulp.task('minify', function() {
+	// return gulp.src('public/scripts/compiled/*.js')
+	// 	.pipe(uglify())
+	// 	.pipe(gulp.dest('public/scripts'));
 });
 
 

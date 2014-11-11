@@ -1,5 +1,14 @@
 module.exports = function(app, models, passport, Backbone) {
+	////////////
+	// Models //
+	////////////
 	var Song = models.Song;
+	var User = models.User;
+	var Room = models.Room;
+
+	///////////
+	// Users //
+	///////////
 
 	// Homepage
 	app.get('/', function(request, response) {
@@ -15,9 +24,8 @@ module.exports = function(app, models, passport, Backbone) {
 
 
 	// signup
-	app.get('/signup', function(req, res) {
-		console.log('hi');
-		res.render('signup.ejs');
+	app.get('/signup', function(request, response) {
+		response.render('signup.ejs');
 	});
 
 	// Signup action
@@ -29,19 +37,36 @@ module.exports = function(app, models, passport, Backbone) {
 
 
 	// logout
-	app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/');
+	app.get('/logout', function(request, response) {
+		request.logout();
+		response.redirect('/');
 	});
+
+	///////////
+	// Rooms //
+	///////////
+
+	// Render rooms page
+	app.get('/rooms', function(request, response) {
+		response.render('room.ejs');
+	});
+
+	// Fetch all existing rooms
+	app.post('/rooms', function(request, response) {
+		Room.find({}, function(error, rooms) {
+			response.send({ data: rooms });
+		});
+	})
 }
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+function isLoggedIn(request, response, next) {
 
 	// if user is authenticated in the session, carry on
-	if (req.isAuthenticated())
+	if (request.isAuthenticated()) {
 		return next();
+	}
 
 	// if they aren't redirect them to the home page
-	res.redirect('/');
+	response.redirect('/');
 }
