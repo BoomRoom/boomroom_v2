@@ -9,7 +9,8 @@ BoomRoom.Views.RoomView = Backbone.View.extend({
 		var $el = $(this.el);
 		var self = this;
 		var name = this.model.get('name');
-		React.render(<BoomRoom.Components.RoomView name={name} />, this.$el.get(0));
+		var id = this.model.get('_id');
+		React.render(<BoomRoom.Components.RoomView id={id} name={name} />, this.$el.get(0));
 		return this;
 	}
 });

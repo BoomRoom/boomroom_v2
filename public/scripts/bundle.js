@@ -30563,7 +30563,7 @@ BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
 BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
 	render: function() {
 		return (
-			React.createElement("a", {href: "#"},  this.props.name)
+			React.createElement("a", {'data-room-id':  this.props.id, href: "#"},  this.props.name)
 		);
 	}
 });
@@ -30616,7 +30616,8 @@ BoomRoom.Views.RoomView = Backbone.View.extend({
 		var $el = $(this.el);
 		var self = this;
 		var name = this.model.get('name');
-		React.render(React.createElement(BoomRoom.Components.RoomView, {name: name}), this.$el.get(0));
+		var id = this.model.get('_id');
+		React.render(React.createElement(BoomRoom.Components.RoomView, {id: id, name: name}), this.$el.get(0));
 		return this;
 	}
 });

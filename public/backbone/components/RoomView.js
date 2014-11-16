@@ -1,7 +1,7 @@
 BoomRoom.Components.RoomView = React.createClass({
 	render: function() {
 		return (
-			<a href="#">{ this.props.name }</a>
+			<a data-room-id={ this.props.id } href="#">{ this.props.name }</a>
 		);
 	}
 });
