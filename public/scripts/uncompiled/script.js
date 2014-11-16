@@ -17,7 +17,7 @@ var Room = require('../../backbone/models/Room.js');
 // Backbone Collections
 var RoomCollection = require('../../backbone/collections/RoomCollection.js');
 
-// Backbone Components
+// Backbone (React) Components
 var RoomViewComponent = require('../../backbone/components/RoomView.js');
 
 // Backbone Views

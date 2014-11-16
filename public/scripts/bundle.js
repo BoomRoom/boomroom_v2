@@ -18,7 +18,7 @@ var Room = require('../../backbone/models/Room.js');
 // Backbone Collections
 var RoomCollection = require('../../backbone/collections/RoomCollection.js');
 
-// Backbone Components
+// Backbone (React) Components
 var RoomViewComponent = require('../../backbone/components/RoomView.js');
 
 // Backbone Views
@@ -30561,7 +30561,6 @@ BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
 });
 },{}],154:[function(require,module,exports){
 BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
-
 	render: function() {
 		return (
 			React.createElement("a", {href: "#"},  this.props.name)
@@ -30616,7 +30615,8 @@ BoomRoom.Views.RoomView = Backbone.View.extend({
 	render: function() {
 		var $el = $(this.el);
 		var self = this;
-		React.renderComponent(new BoomRoom.Components.RoomView({ name: self.model.get('name') }), this.$el.get(0));
+		var name = this.model.get('name');
+		React.render(React.createElement(BoomRoom.Components.RoomView, {name: name}), this.$el.get(0));
 		return this;
 	}
 });

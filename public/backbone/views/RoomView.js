@@ -8,7 +8,8 @@ BoomRoom.Views.RoomView = Backbone.View.extend({
 	render: function() {
 		var $el = $(this.el);
 		var self = this;
-		React.renderComponent(new BoomRoom.Components.RoomView({ name: self.model.get('name') }), this.$el.get(0));
+		var name = this.model.get('name');
+		React.render(<BoomRoom.Components.RoomView name={name} />, this.$el.get(0));
 		return this;
 	}
 });
