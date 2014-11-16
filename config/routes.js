@@ -25,7 +25,8 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// signup
 	app.get('/signup', function(request, response) {
-		response.render('signup.ejs');
+		respon
+		se.render('signup.ejs');
 	});
 
 	// Signup action
@@ -51,12 +52,41 @@ module.exports = function(app, models, passport, Backbone) {
 		response.render('room.ejs');
 	});
 
+	// Create new room
+	app.post('/room', function(request, response) {
+		var data = request.body;
+
+		var newRoom = new Room();
+		newRoom.name = data.name;
+		newRoom.save(function(err) {
+			if(err) {
+				throw err;
+			}
+			return true;
+		});
+		response.send({ data: newRoom });
+	});
+
 	// Fetch all existing rooms
-	app.post('/rooms', function(request, response) {
+	app.get('/api/rooms', function(request, response) {
 		Room.find({}, function(error, rooms) {
 			response.send({ data: rooms });
 		});
-	})
+	});
+
+	// Update existing room
+	app.put('/room/:id', function(request, response) {
+		var room_id = request.params.id;
+		var data = request.body;
+
+		Room.findById(room_id, function(err, room) {
+			if(room) {
+				// update the room here
+			} else {
+				return false;
+			}
+		});
+	});
 }
 
 // route middleware to make sure a user is logged in

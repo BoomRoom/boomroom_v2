@@ -9,6 +9,17 @@ window.React = require('react');
 var BoomRoom = BoomRoom || { Models: {}, Collections: {}, Views: {}, Components: {} };
 window.BoomRoom = BoomRoom;
 
-// Include backbone code
+// Backbone Models
+var User = require('../../backbone/models/User.js');
+var Song = require('../../backbone/models/Song.js');
+var Room = require('../../backbone/models/Room.js');
+
+// Backbone Collections
+var RoomCollection = require('../../backbone/collections/RoomCollection.js');
+
+// Backbone Components
 var RoomViewComponent = require('../../backbone/components/RoomView.js');
+
+// Backbone Views
+var RoomCollectionView = require('../../backbone/views/RoomCollectionView.js');
 var RoomView = require('../../backbone/views/RoomView.js');

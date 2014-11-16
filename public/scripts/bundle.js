@@ -10,10 +10,21 @@ window.React = require('react');
 var BoomRoom = BoomRoom || { Models: {}, Collections: {}, Views: {}, Components: {} };
 window.BoomRoom = BoomRoom;
 
-// Include backbone code
+// Backbone Models
+var User = require('../../backbone/models/User.js');
+var Song = require('../../backbone/models/Song.js');
+var Room = require('../../backbone/models/Room.js');
+
+// Backbone Collections
+var RoomCollection = require('../../backbone/collections/RoomCollection.js');
+
+// Backbone Components
 var RoomViewComponent = require('../../backbone/components/RoomView.js');
+
+// Backbone Views
+var RoomCollectionView = require('../../backbone/views/RoomCollectionView.js');
 var RoomView = require('../../backbone/views/RoomView.js');
-},{"../../../node_modules/backbone/node_modules/underscore/underscore-min.js":4,"../../backbone/components/RoomView.js":153,"../../backbone/views/RoomView.js":154,"Backbone":2,"jquery":6,"react":152}],2:[function(require,module,exports){
+},{"../../../node_modules/backbone/node_modules/underscore/underscore-min.js":4,"../../backbone/collections/RoomCollection.js":153,"../../backbone/components/RoomView.js":154,"../../backbone/models/Room.js":155,"../../backbone/models/Song.js":156,"../../backbone/models/User.js":157,"../../backbone/views/RoomCollectionView.js":158,"../../backbone/views/RoomView.js":159,"Backbone":2,"jquery":6,"react":152}],2:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -30533,23 +30544,79 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":34}],153:[function(require,module,exports){
-BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
-	handleClick: function() {
-		alert('hi');
+BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
+	model: BoomRoom.Models.Room,
+	url: '/api/rooms',
+	initialize: function() {
+		this.fetch({
+			success: function(collection, response) {
+				var roomCollectionView = new BoomRoom.Views.RoomCollectionView({ collection: collection });
+				roomCollectionView.render();
+			}
+		});
 	},
-	render: function() {
-		return (
-			React.createElement("a", {href: "#", onClick: this.handleClick}, "Alert Me")
-		);
+	parse: function(response) {
+		return response.data;
 	}
 });
 },{}],154:[function(require,module,exports){
-BoomRoom.Views.RoomView = Backbone.View.extend({
-	el: 'body',
-	template: '<div class="room-container"></div>',
+BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
+
 	render: function() {
-		this.$el.html(this.template);
-		React.renderComponent(new BoomRoom.Components.RoomView(), this.$('.room-container').get(0));
+		return (
+			React.createElement("a", {href: "#"},  this.props.name)
+		);
+	}
+});
+},{}],155:[function(require,module,exports){
+BoomRoom.Models.Room = Backbone.Model.extend({
+	url: function() {
+		// if id exists, puts to /rooms, else posts to /rooms
+		return this.id ? '/room/' + this.id : '/room';
+	},
+	initialize: function() {
+		console.log('a room has been created');
+	}
+});
+},{}],156:[function(require,module,exports){
+BoomRoom.Models.Song = Backbone.Model.extend({
+	
+});
+},{}],157:[function(require,module,exports){
+BoomRoom.Models.User = Backbone.Model.extend({
+
+});
+},{}],158:[function(require,module,exports){
+BoomRoom.Views.RoomCollectionView = Backbone.View.extend({
+	el: '#room-list',
+	initialize: function() {
+		this.collection.on('add', this.render, this);
+	},
+	render: function() {
+		var $el = $(this.el);
+		var self = this;
+
+		// Loop through models and append views
+		this.collection.each(function(room) {
+			var roomView = new BoomRoom.Views.RoomView({ model: room });
+			$el.append(roomView.render().el);
+		});
+
+		return this;
+	}
+});
+},{}],159:[function(require,module,exports){
+BoomRoom.Views.RoomView = Backbone.View.extend({
+	tagName: 'li',
+	className: 'room-list-item',
+	initialize: function() {
+		this.model.on('change', this.render, this);
+		this.model.on('destroy', this.remove, this);
+	},
+	render: function() {
+		var $el = $(this.el);
+		var self = this;
+		React.renderComponent(new BoomRoom.Components.RoomView({ name: self.model.get('name') }), this.$el.get(0));
 		return this;
 	}
 });

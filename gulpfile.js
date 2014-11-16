@@ -48,4 +48,6 @@ gulp.task('minify', function() {
 gulp.task('watch', function() {
     gulp.watch('public/styles/scss/*.scss', ['sass']);
     gulp.watch('public/scripts/uncompiled/*.js', ['js']);
+    gulp.watch('public/backbone/**/.*.js', ['js']);
 });
+
