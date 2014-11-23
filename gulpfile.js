@@ -4,6 +4,8 @@ var gulp = require('gulp');
 // Gulp Plugins
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
+var nodemon = require('gulp-nodemon');
+var watch = require('gulp-watch');
 var browserify = require('browserify');
 var reactify = require('reactify')
 var source = require('vinyl-source-stream');
@@ -14,7 +16,16 @@ var source = require('vinyl-source-stream');
 ///////////
 
 // Default
-gulp.task('default', ['sass', 'js', 'minify', 'watch']);
+gulp.task('default', ['nodemon', 'sass', 'js', 'minify', 'watch']);
+
+// Nodemon
+gulp.task('nodemon', function () {
+  nodemon({ script: 'server.js', ext: 'html js', ignore: [] })
+    .on('change', [])
+    .on('restart', function () {
+      console.log('restarted!')
+    })
+});
 
 // SASS
 gulp.task('sass', function() {
@@ -46,8 +57,8 @@ gulp.task('minify', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('public/styles/scss/*.scss', ['sass']);
-    gulp.watch('public/scripts/uncompiled/*.js', ['js']);
-    gulp.watch('public/backbone/**/.*.js', ['js']);
+    gulp.watch('./public/styles/scss/*.scss', ['sass']);
+    gulp.watch('./public/scripts/uncompiled/*.js', ['js']);
+    gulp.watch('./public/backbone/**/*.js', ['js']);
 });
 

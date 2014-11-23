@@ -4,16 +4,52 @@
 	<title>BoomRoom v2</title>
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="styles/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="styles/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="styles/css/room.css">
+
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 	<!-- Scripts -->
 	<!-- Bundle - Loads browserified libraries -->
 	<script type="text/javascript" src="scripts/bundle.js"></script>
 </head>
 <body>
-	<!-- List of currently open rooms -->
-	<ul id="room-list">
-	</ul>
+	<div class="container">
+		<!-- Options -->
+		<div id="room-action-container" class="column">
+			<div id="logo-container">
+				<div>
+					<span id="logo-first-word">boom</span> 
+					<span id="logo-slash">//</span> 
+					<span id="logo-second-word">room</span>
+				</div>
+			</div>
+
+			<div id="room-actions">
+				<ul>
+					<li>
+						<a href="#">Create a Room</a>
+					</li>
+					<li>
+						<a href="#">Something</a>
+					</li>
+					<li>
+						<a href="#">Something Else</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Room List -->
+		<div id="room-list-container" class="column">
+			<h2>Open Rooms</h2>
+
+			<!-- List of currently open rooms -->
+			<ul id="room-list">
+			</ul>
+		</div>
+	</div>
 
 	<!-- Kickoff the backbone -->
 	<script type="text/javascript">

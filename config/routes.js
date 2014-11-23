@@ -69,7 +69,16 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// Fetch all existing rooms
 	app.get('/api/rooms', function(request, response) {
-		Room.find({}, function(error, rooms) {
+		// Obtains get string from url
+		var params = request.query;
+
+		// Parses search regex
+		if(typeof params['name'] != 'undefined') {
+			params['name'] = new RegExp(params['name'], 'i');
+		}
+
+		// Find room with params
+		Room.find(params, function(error, rooms) {
 			response.send({ data: rooms });
 		});
 	});

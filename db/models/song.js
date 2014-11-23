@@ -4,17 +4,17 @@ module.exports = function(mongoose) {
 
 	// Song Schema
 	var songSchema = new Schema({
-	  title: String,
-	  artist: String,
-	  stream_url: String,
-	  sc_ident: Number,
-	  album_art: String,
-	  genre: String,
+	  title: { type: String, required: true },
+	  artist: { type: String, required: true },
+	  stream_url: { type: String, required: true },
+	  sc_ident: { type: Number, required: true },
+	  album_art: { type: String },
+	  genre: { type: String },
 	  played: { type: Boolean, default: false },
 	  currently_playing: { type: Boolean, default: false },
 	  likes: { type: Number, default: 0 },
 	  dislikes: { type: Number, default: 0 },
-	  added_by: String,
+	  added_by: { type: String }, // could be user schema, but only need username
 	  created: { type: Date, default: Date.now },
 	  updated: { type: Date, default: Date.now }
 	});

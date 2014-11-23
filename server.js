@@ -48,8 +48,8 @@ app.use(session({ secret: 'aZXYfsu3827asOIASDsdXCSAhfwuanQ@#EQ', saveUninitializ
 app.use(passport.initialize());
 app.use(passport.session()); // keeps login in session
 
-// Routes
-require('./config/routes.js')(app, models, passport, Backbone);
+// Controllers & Routes
+require('./config/routes.js')(app, models, passport);
 
 // Set public directory for assets
 app.use(express.static(__dirname + '/public'));

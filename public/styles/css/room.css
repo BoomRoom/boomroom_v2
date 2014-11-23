@@ -1,0 +1,71 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Lato; }
+
+.container {
+  width: 100%;
+  height: 100%; }
+  .container .column {
+    height: 100%;
+    float: left; }
+  .container .half-row {
+    width: 50%;
+    height: 100%;
+    float: left; }
+
+#room-action-container {
+  width: 40%;
+  background-color: rgba(0, 191, 127, 0.6); }
+  #room-action-container #logo-container {
+    font-family: Lato;
+    font-size: 48px;
+    margin: 0 auto;
+    width: 320px;
+    text-align: center;
+    height: 40%; }
+    #room-action-container #logo-container div {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translate(0%, -60%);
+      -moz-transform: translate(0%, -60%);
+      -ms-transform: translate(0%, -60%);
+      -o-transform: translate(0%, -60%);
+      transform: translate(0%, -60%); }
+      #room-action-container #logo-container div #logo-first-word {
+        color: #F47E20; }
+      #room-action-container #logo-container div #logo-slash {
+        color: #00ADEE;
+        font-weight: bold;
+        font-size: 60px;
+        position: relative;
+        top: 6px; }
+      #room-action-container #logo-container div #logo-second-word {
+        color: #F22738; }
+  #room-action-container #room-actions {
+    height: 60%; }
+    #room-action-container #room-actions ul {
+      height: 100%; }
+      #room-action-container #room-actions ul li {
+        height: 33.333%;
+        font-family: Lato; }
+        #room-action-container #room-actions ul li a {
+          position: relative;
+          top: 50%;
+          display: block;
+          margin: 0 auto;
+          text-decoration: none;
+          -webkit-transform: translate(0%, -50%);
+          -moz-transform: translate(0%, -50%);
+          -ms-transform: translate(0%, -50%);
+          -o-transform: translate(0%, -50%);
+          transform: translate(0%, -50%); }
+
+#room-list-container {
+  width: 60%;
+  background-color: #fff; }
+  #room-list-container h2 {
+    font-size: 42px; }
