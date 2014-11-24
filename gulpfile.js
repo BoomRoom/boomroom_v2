@@ -6,6 +6,8 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
+var iconfont = require('gulp-iconfont');
+var consolidate = require('gulp-consolidate');
 var browserify = require('browserify');
 var reactify = require('reactify')
 var source = require('vinyl-source-stream');
@@ -41,6 +43,23 @@ gulp.task('js', function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('public/scripts'));
+});
+
+// Compile Icons (SVGs)
+gulp.task('webfont', function(){
+  gulp.src(['./public/images/svg/*.svg'])
+    .pipe(iconfont({ fontName: 'myfont' }))
+    .on('codepoints', function(codepoints, options) {
+        gulp.src('./public/templates/icons.css')
+        .pipe(consolidate('lodash', {
+            glyphs: codepoints,
+            fontName: 'myfont',
+            fontPath: '../fonts/',
+            className: 'icon'
+        }))
+        .pipe(gulp.dest('./public/styles/css/'));
+    })
+    .pipe(gulp.dest('./public/fonts/'));
 });
 
 // Uglify

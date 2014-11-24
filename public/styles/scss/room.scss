@@ -12,6 +12,10 @@ h1,h2,h3,h4,h5,h6 {
 	font-family: Lato;
 }
 
+a {
+	text-decoration: none;
+}
+
 // General Container
 .container {
 	width: 100%;
@@ -89,8 +93,15 @@ h1,h2,h3,h4,h5,h6 {
 #room-list-container {
 	width: 60%;
 	background-color: #fff;
-	h2 {
-		font-size: 42px;
+	#room-list {
+		padding: 40px;
+		.room-list-item {
+			float: left;
+			width: 48%;
+			margin: 1%;
+			height: 200px;
+			background-color: rgba(0,0,0,0.5);
+		}
 	}
 }
 

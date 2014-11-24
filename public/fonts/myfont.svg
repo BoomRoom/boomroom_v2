@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <font id="myfont" horiz-adv-x="17.15">
+    <font-face font-family="myfont"
+      units-per-em="23.303" ascent="23.303"
+      descent="0" />
+    <missing-glyph horiz-adv-x="0" />
+    <glyph glyph-name="lock"
+      unicode="&#xE001;"
+      horiz-adv-x="17.15" d=" M15.637 13.057V16.244C15.638 20.137 12.469 23.303 8.578 23.303C4.684 23.303 1.517 20.137 1.517 16.244V13.056H0V-0.001H17.15V13.057H15.637zM4.176 16.244C4.176 18.669 6.15 20.64 8.577 20.64C11 20.64 12.973 18.668 12.973 16.244V13.056H4.176V16.244zM9.79 3.579H7.367L7.73 7.158C7.282 7.437 6.98 7.935 6.98 8.506C6.98 9.385 7.694 10.099 8.578 10.099C9.457 10.099 10.169 9.385 10.169 8.506C10.169 7.935 9.872 7.438 9.42 7.158L9.79 3.579z" />
+  </font>
+</defs>
+</svg>
