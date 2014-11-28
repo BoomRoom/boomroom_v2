@@ -62,11 +62,11 @@ gulp.task('webfont', function(){
     .pipe(gulp.dest('./public/fonts/'));
 });
 
-// Uglify
+// Uglify - should be enabled for prod
 gulp.task('minify', function() {
-	// return gulp.src('public/scripts/compiled/*.js')
+	// return gulp.src('public/scripts/*.js')
 	// 	.pipe(uglify())
-	// 	.pipe(gulp.dest('public/scripts'));
+	// 	.pipe(gulp.dest('public/scripts/compiled/'));
 });
 
 
