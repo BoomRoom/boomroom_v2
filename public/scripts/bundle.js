@@ -30551,7 +30551,7 @@ BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
 		this.fetchRooms();
 	},
 	fetchRooms: function(params) {
-		if(typeof params == 'undefined') {
+		if(_.isUndefined(params)) {
 			params = {};
 		}
 
@@ -30562,7 +30562,7 @@ BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
 				var roomCollectionView = new BoomRoom.Views.RoomCollectionView({ collection: collection });
 				roomCollectionView.render();
 			}
-		})
+		});
 	},
 	parse: function(response) {
 		return response.data;

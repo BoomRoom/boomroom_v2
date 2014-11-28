@@ -25,8 +25,7 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// signup
 	app.get('/signup', function(request, response) {
-		respon
-		se.render('signup.ejs');
+		response.render('signup.ejs');
 	});
 
 	// Signup action
