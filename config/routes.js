@@ -12,13 +12,13 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// Homepage
 	app.get('/', function(request, response) {
-	    response.render('index.ejs', { check: 'hi', Backbone: Backbone });
+	    response.render('index.ejs');
 	});
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/worked', // redirect to the secure profile section
-		failureRedirect : '/login', // redirect back to the signup page if there is an error
+		successRedirect : '/rooms', // redirect to the secure profile section
+		failureRedirect : '/', // redirect back to the signup page if there is an error
 		// failureFlash : true // allow flash messages
 	}));
 
@@ -30,8 +30,8 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// Signup action
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/worked', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
+		successRedirect : '/rooms', // redirect to the secure profile section
+		failureRedirect : '/', // redirect back to the signup page if there is an error
 		// failureFlash : true // allow flash messages
 	}));
 
@@ -48,7 +48,8 @@ module.exports = function(app, models, passport, Backbone) {
 
 	// Render rooms page
 	app.get('/rooms', function(request, response) {
-		response.render('room.ejs');
+		console.log(request.session.passport);
+		response.render('room.ejs', { user: request.user });
 	});
 
 	// Create new room

@@ -5,6 +5,7 @@
 // Express middleware (with extensions)
 var express = require('express');
 var session = require('express-session');
+var cookie = require('cookie-parser');
 var body_parser = require('body-parser');
 var method_override = require('method-override');
 
@@ -44,7 +45,15 @@ var models = require('./db/models/models.js')(mongoose);
 // User auth (w/ sessions)
 var passport = require('passport');
 require('./config/passport.js')(passport, models.User);
-app.use(session({ secret: 'aZXYfsu3827asOIASDsdXCSAhfwuanQ@#EQ', saveUninitialized: true, resave: true }));
+app.use(cookie());
+app.use(session({ 
+	cookie: {
+		maxAge: new Date(Date.now() + 3600000)
+	},
+	secret: 'aZXYfsu3827asOIASDsdXCSAhfwuanQ@#EQ',
+	saveUninitialized: true,
+	resave: true 
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // keeps login in session
 
