@@ -9,6 +9,13 @@ var cookie = require('cookie-parser');
 var body_parser = require('body-parser');
 var method_override = require('method-override');
 
+// Redis
+var redis = require('redis');
+var client = redis.createClient();
+
+// Redis storage for sessions
+var RedisStore = require('connect-redis')(session);
+
 // Initialize app with express
 var app = express();
 app.use(body_parser.json());
@@ -47,12 +54,15 @@ var passport = require('passport');
 require('./config/passport.js')(passport, models.User);
 app.use(cookie());
 app.use(session({ 
-	cookie: {
-		maxAge: new Date(Date.now() + 3600000)
-	},
+	maxAge: new Date(Date.now() + 3600000),
 	secret: 'aZXYfsu3827asOIASDsdXCSAhfwuanQ@#EQ',
-	saveUninitialized: true,
-	resave: true 
+	store: new RedisStore({
+		host: 'localhost',
+		client: client,
+		port: 6379
+	}),
+	saveUninitialized: false,
+	resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // keeps login in session

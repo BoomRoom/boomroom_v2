@@ -49,7 +49,7 @@ module.exports = function(app, models, passport, Backbone) {
 	// Render rooms page
 	app.get('/rooms', function(request, response) {
 		console.log(request.session.passport);
-		response.render('room.ejs', { user: request.user });
+		response.render('room.ejs', { user: request.session.passport.user });
 	});
 
 	// Create new room
