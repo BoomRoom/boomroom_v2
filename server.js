@@ -9,7 +9,7 @@ var cookie = require('cookie-parser');
 var body_parser = require('body-parser');
 var method_override = require('method-override');
 
-// Redis
+// Redis & Redis Client
 var redis = require('redis');
 var client = redis.createClient();
 
@@ -24,10 +24,10 @@ app.use(method_override());
 app.set('view engine', 'ejs'); // set template engine
 
 // HTTP setup
-var http = require('http').Server(app);
+var http = require('http').Server(app).listen(8000);
 
 // Socket IO
-var socketio = require('socket.io')(http);
+var io = require('socket.io')(http);
 
 // Morgan (logging) setup
 var morgan = require('morgan');
@@ -54,26 +54,26 @@ var passport = require('passport');
 require('./config/passport.js')(passport, models.User);
 app.use(cookie());
 app.use(session({ 
-	maxAge: new Date(Date.now() + 3600000),
+	maxAge: new Date(Date.now() + 3600000), // sets expiry date
 	secret: 'aZXYfsu3827asOIASDsdXCSAhfwuanQ@#EQ',
 	store: new RedisStore({
 		host: 'localhost',
 		client: client,
-		port: 6379
+		port: 6379 // default redis port
 	}),
-	saveUninitialized: false,
-	resave: false
+	saveUninitialized: false, // does not save when empty
+	resave: false // only resaves when value has changed, not constantly
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // keeps login in session
 
 // Controllers & Routes
-require('./config/routes.js')(app, models, passport);
+require('./config/routes.js')(app, models, passport, io);
 
 // Set public directory for assets
 app.use(express.static(__dirname + '/public'));
 
 // Launch the app
-app.listen(8000, function(){
-	console.log('listening on port 8000');
-});
+// app.listen(8000, function(){
+// 	console.log('listening on port 8000');
+// });

@@ -4,55 +4,35 @@
 	<title>BoomRoom v2</title>
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="styles/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="styles/css/room.css">
+	<link rel="stylesheet" type="text/css" href="/styles/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/styles/css/room.css">
 
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 	<!-- Scripts -->
 	<!-- Bundle - Loads browserified libraries -->
-	<script type="text/javascript" src="scripts/bundle.js"></script>
+	<script type="text/javascript" src="/scripts/bundle.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
 	<div class="container">
-		<!-- Options -->
-		<div id="room-action-container" class="column">
-			<div id="logo-container">
-				<div>
-					<span id="logo-first-word">boom</span> 
-					<span id="logo-slash">//</span> 
-					<span id="logo-second-word">room</span>
-				</div>
-			</div>
-
-			<div id="room-actions">
-				<ul>
-					<li>
-						<a href="#">Create a Room</a>
-					</li>
-					<li>
-						<a href="#">Something</a>
-					</li>
-					<li>
-						<a href="#">Something Else</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		<!-- Room List -->
-		<div id="room-list-container" class="column">
-			<!-- List of currently open rooms -->
-			<ul id="room-list">
-			
-			</ul>
-		</div>
+		Hello there
+		<ul>
+		</ul>
 	</div>
-
-	<!-- Kickoff the backbone -->
 	<script type="text/javascript">
-		var rooms = new BoomRoom.Collections.RoomCollection();
+		var socket = io.connect('http://localhost');
+		socket.emit('subscribe', { room: '<%= room_id %>', username: '<%= user.username %>' })
+
+		socket.on('joined', function(data) {
+			console.log(data);
+			$('ul').append('<li username="' + data.username + '">' + data.username + '</li>');
+		});
+
+		socket.on('left', function(data) {
+			$('li[username=' + data.username + ']').remove();
+		});
 	</script>
 </body>
 </html>

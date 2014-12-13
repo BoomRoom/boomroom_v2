@@ -1,10 +1,39 @@
-module.exports = function(app, models, passport, Backbone) {
+module.exports = function(app, models, passport, io) {
 	////////////
 	// Models //
 	////////////
 	var Song = models.Song;
 	var User = models.User;
 	var Room = models.Room;
+
+	/////////////
+	// Sockets //
+	/////////////
+	// Creates a namespaced socket to the room id
+	io.on('connection', function(socket) {
+		// User enters the page
+		socket.on('subscribe', function(data) {
+			socket.join(data.room);
+
+			if(typeof socket.username == 'undefined') {
+				socket.username = data.username;
+			}
+
+			if(typeof socket.boomroom_id == 'undefined') {
+				socket.boomroom_id = data.room;
+			}
+
+			socket.in(data.room).emit('joined', { username: data.username });
+		});
+
+		// User leaves the page
+		socket.on('disconnect', function() {
+			socket.in(socket.boomroom_id).emit('left', { username: socket.username });
+			console.log('a user has left');
+		});
+	});
+
+
 
 	///////////
 	// Users //
@@ -46,10 +75,17 @@ module.exports = function(app, models, passport, Backbone) {
 	// Rooms //
 	///////////
 
-	// Render rooms page
+	// Render room list page
 	app.get('/rooms', function(request, response) {
 		console.log(request.session.passport);
-		response.render('room.ejs', { user: request.session.passport.user });
+		response.render('rooms.ejs', { user: request.session.passport.user });
+	});
+
+	// Render room page
+	app.get('/room/:id', function(request, response) {
+		var room_id = request.params.id;
+
+		response.render('room.ejs', { user: request.session.passport.user, room_id: room_id });
 	});
 
 	// Create new room

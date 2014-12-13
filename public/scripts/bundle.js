@@ -30572,7 +30572,7 @@ BoomRoom.Collections.RoomCollection = Backbone.Collection.extend({
 BoomRoom.Components.RoomView = React.createClass({displayName: 'RoomView',
 	render: function() {
 		return (
-			React.createElement("a", {'data-room-id':  this.props.model.get('_id'), href: "#", onClick:  this.props.handleClick},  this.props.model.get('name') )
+			React.createElement("a", {'data-room-id':  this.props.model.get('_id'), href:  '/room/' + this.props.model.get('_id'), onClick:  this.props.handleClick},  this.props.model.get('name') )
 		);
 	}
 });
